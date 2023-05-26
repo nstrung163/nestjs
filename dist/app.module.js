@@ -15,6 +15,8 @@ const admin_controller_1 = require("./admin/admin.controller");
 const cats_service_1 = require("./cats/cats.service");
 const cats_module_1 = require("./cats/cats.module");
 const logger_middleware_1 = require("./logger/logger.middleware");
+const core_1 = require("@nestjs/core");
+const validation_pipe_1 = require("./validation/validation.pipe");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -29,6 +31,10 @@ AppModule = __decorate([
         providers: [
             app_service_1.AppService,
             cats_service_1.CatsService,
+            {
+                provide: core_1.APP_PIPE,
+                useClass: validation_pipe_1.ValidationPipe,
+            },
         ],
     })
 ], AppModule);

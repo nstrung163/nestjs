@@ -17,7 +17,6 @@ const common_1 = require("@nestjs/common");
 const cats_service_1 = require("./cats.service");
 const create_cat_dto_1 = require("./dto/create-cat.dto");
 const validation_pipe_1 = require("../validation/validation.pipe");
-const joi_validation_pipe_1 = require("../joi-validation/joi-validation.pipe");
 let CatsController = class CatsController {
     constructor(catesService) {
         this.catesService = catesService;
@@ -25,8 +24,8 @@ let CatsController = class CatsController {
     async findAll() {
         return this.catesService.findAll();
     }
-    async create(createCateDto) {
-        this.catesService.create(createCateDto);
+    async create(createCatDto) {
+        this.catesService.create(createCatDto);
     }
     findOne(id) {
         console.log(`This action return a ${id} ${typeof id} cat`);
@@ -41,21 +40,20 @@ __decorate([
 ], CatsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Post)(),
-    (0, common_1.UsePipes)(new joi_validation_pipe_1.JoiValidationPipe(create_cat_dto_1.createCatSchema)),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_cat_dto_1.CreateCatDto]),
     __metadata("design:returntype", Promise)
 ], CatsController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)(":id"),
-    __param(0, (0, common_1.Param)("id", validation_pipe_1.ValidationPipe)),
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id', validation_pipe_1.ValidationPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], CatsController.prototype, "findOne", null);
 CatsController = __decorate([
-    (0, common_1.Controller)("cats"),
+    (0, common_1.Controller)('cats'),
     __metadata("design:paramtypes", [cats_service_1.CatsService])
 ], CatsController);
 exports.CatsController = CatsController;
