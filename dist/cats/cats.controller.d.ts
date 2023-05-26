@@ -5,5 +5,5 @@ export declare class CatsController {
     constructor(catesService: CatsService);
     findAll(): Promise<any[]>;
     create(createCateDto: CreateCatDto): Promise<any>;
-    findOne(id: any): string;
+    findOne(id: number): number;
 }

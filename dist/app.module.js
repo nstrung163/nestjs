@@ -13,13 +13,23 @@ const app_service_1 = require("./app.service");
 const cats_controller_1 = require("./cats/cats.controller");
 const admin_controller_1 = require("./admin/admin.controller");
 const cats_service_1 = require("./cats/cats.service");
+const cats_module_1 = require("./cats/cats.module");
+const logger_middleware_1 = require("./logger/logger.middleware");
 let AppModule = class AppModule {
+    configure(consumer) {
+        consumer
+            .apply(logger_middleware_1.LoggerMiddleware)
+            .forRoutes(cats_controller_1.CatsController);
+    }
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [],
+        imports: [cats_module_1.CatsModule],
         controllers: [app_controller_1.AppController, cats_controller_1.CatsController, admin_controller_1.AdminController],
-        providers: [app_service_1.AppService, cats_service_1.CatsService],
+        providers: [
+            app_service_1.AppService,
+            cats_service_1.CatsService,
+        ],
     })
 ], AppModule);
 exports.AppModule = AppModule;
