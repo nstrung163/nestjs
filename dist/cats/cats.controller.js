@@ -17,6 +17,9 @@ const common_1 = require("@nestjs/common");
 const cats_service_1 = require("./cats.service");
 const create_cat_dto_1 = require("./dto/create-cat.dto");
 const validation_pipe_1 = require("../validation/validation.pipe");
+const roles_guard_1 = require("../roles/roles.guard");
+const logging_interceptor_1 = require("../logging/logging.interceptor");
+const transform_interceptor_1 = require("../transform/transform.interceptor");
 let CatsController = class CatsController {
     constructor(catesService) {
         this.catesService = catesService;
@@ -34,6 +37,7 @@ let CatsController = class CatsController {
 };
 __decorate([
     (0, common_1.Get)(),
+    (0, common_1.UseInterceptors)(transform_interceptor_1.TransformInterceptor),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -54,6 +58,8 @@ __decorate([
 ], CatsController.prototype, "findOne", null);
 CatsController = __decorate([
     (0, common_1.Controller)('cats'),
+    (0, common_1.UseInterceptors)(logging_interceptor_1.LoggingInterceptor),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
     __metadata("design:paramtypes", [cats_service_1.CatsService])
 ], CatsController);
 exports.CatsController = CatsController;

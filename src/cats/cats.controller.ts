@@ -15,6 +15,8 @@ import {
 	Redirect,
 	Res,
 	UseFilters,
+	UseGuards,
+	UseInterceptors,
 	UsePipes,
 } from '@nestjs/common'
 import { Request, Response } from 'express'
@@ -24,11 +26,17 @@ import { CreateCatDto, createCatSchema } from './dto/create-cat.dto'
 import { HttpExceptionFilter } from 'src/http-exception/http-exception.filter'
 import { ValidationPipe } from 'src/validation/validation.pipe'
 import { JoiValidationPipe } from 'src/joi-validation/joi-validation.pipe'
+import { RolesGuard } from 'src/roles/roles.guard'
+import { LoggingInterceptor } from 'src/logging/logging.interceptor'
+import { TransformInterceptor } from 'src/transform/transform.interceptor'
 
 @Controller('cats')
+@UseInterceptors(LoggingInterceptor)
+@UseGuards(RolesGuard)
 export class CatsController {
 	constructor(private catesService: CatsService) {}
 	@Get()
+	@UseInterceptors(TransformInterceptor)
 	async findAll(): Promise<any[]> {
 		return this.catesService.findAll()
 		// throw new BadRequestException("Something bad happened", {
