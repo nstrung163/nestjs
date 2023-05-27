@@ -9,9 +9,9 @@ import { LoggerMiddleware } from './logger/logger.middleware'
 import { APP_FILTER, APP_PIPE } from '@nestjs/core'
 import { HttpExceptionFilter } from './http-exception/http-exception.filter'
 import { ValidationPipe } from './validation/validation.pipe'
-
+import { ConfigModule } from '@nestjs/config'
 @Module({
-	imports: [CatsModule],
+	imports: [CatsModule, ConfigModule.forRoot()],
 	controllers: [AppController, CatsController, AdminController],
 	providers: [
 		AppService,
